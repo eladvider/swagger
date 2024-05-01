@@ -1,0 +1,64 @@
+openapi: 3.0.0
+info:
+  title: home-iot-api
+  description: The API for the EatBacon IOT project
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/EladVider/Calculate/1.0.0
+  description: SwaggerHub API Auto Mocking
+paths:
+  /Calculte:
+    post:
+      tags:
+      - Calculte
+      summary: Perform arithmetic operations on two numbers
+      operationId: calculate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Operator'
+      responses:
+        "200":
+          description: response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+      security:
+      - bearerAuth: []
+      x-swagger-router-controller: Calculte
+components:
+  schemas:
+    Operator:
+      type: object
+      properties:
+        num1:
+          type: integer
+          format: int32
+          example: 3
+        num2:
+          type: integer
+          format: int32
+          example: 5
+        operation:
+          type: string
+          example: "+"
+          enum:
+          - "+"
+          - "-"
+          - '*'
+          - /
+    inline_response_200:
+      type: object
+      properties:
+        result:
+          type: number
+          example: 8
+      example:
+        result: 8
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
